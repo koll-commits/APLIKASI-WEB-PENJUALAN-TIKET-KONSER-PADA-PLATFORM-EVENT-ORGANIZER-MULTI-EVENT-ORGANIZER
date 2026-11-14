@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\EventFactory;
+use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,6 +12,7 @@ class Event extends Model
 {
     /** @use HasFactory<EventFactory> */
     use HasFactory;
+    use BelongsToTenant;
 
     protected $fillable = ['code', 'slug', 'name', 'tax_rate', 'service_fee_rate', 'status'];
 

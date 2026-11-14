@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\CommissionSchemeFactory;
+use App\Models\Concerns\BelongsToTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,7 @@ class CommissionScheme extends Model
 {
     /** @use HasFactory<CommissionSchemeFactory> */
     use HasFactory;
+    use BelongsToTenant;
 
     protected $fillable = ['commission_rate', 'valid_from', 'valid_to'];
 
