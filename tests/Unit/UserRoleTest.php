@@ -14,7 +14,7 @@ class UserRoleTest extends TestCase
         $u->status = 'active';
         $this->assertTrue($u->hasRole('admin'));
         $this->assertTrue($u->isAdmin());
-        $this->assertFalse($u->hasRole('eo'));
+        $this->assertFalse($u->hasRole('tenant'));
         $this->assertFalse($u->isTenantOperator());
     }
 
@@ -32,6 +32,6 @@ class UserRoleTest extends TestCase
         $u = new User;
         $u->status = 'active';
         $this->assertFalse($u->hasRole('admin'));
-        $this->assertFalse($u->hasRole('eo'));
+        $this->assertFalse($u->hasRole('tenant'));
     }
 }

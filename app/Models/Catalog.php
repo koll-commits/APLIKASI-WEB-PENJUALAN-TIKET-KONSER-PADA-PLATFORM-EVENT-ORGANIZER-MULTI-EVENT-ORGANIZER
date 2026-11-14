@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use Database\Factories\CatalogFactory;
 use App\Models\Concerns\BelongsToTenant;
+use Database\Factories\CatalogFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Catalog extends Model
 {
+    use BelongsToTenant;
+
     /** @use HasFactory<CatalogFactory> */
     use HasFactory;
 
-    use BelongsToTenant;
     // tenant_id & category_id di-set eksplisit oleh sistem domain
     protected $fillable = ['name', 'base_price', 'stock_qty', 'is_available', 'prep_minutes'];
 

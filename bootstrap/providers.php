@@ -1,13 +1,25 @@
 <?php
 
+use App\Modules\Admin\AdminServiceProvider;
+use App\Modules\Catalog\CatalogServiceProvider;
+use App\Modules\Checkin\CheckinServiceProvider;
+use App\Modules\Ordering\OrderingServiceProvider;
+use App\Modules\Payments\PaymentsServiceProvider;
+use App\Modules\Reporting\ReportingServiceProvider;
+use App\Modules\Ticketing\TicketingServiceProvider;
+use App\Providers\AppServiceProvider;
+use App\Providers\FortifyServiceProvider;
+use App\Providers\VoltServiceProvider;
+
 return [
-    App\Modules\Admin\AdminServiceProvider::class,
-    App\Modules\Catalog\CatalogServiceProvider::class,
-    App\Modules\Checkin\CheckinServiceProvider::class,
-    App\Modules\Ordering\OrderingServiceProvider::class,
-    App\Modules\Payments\PaymentsServiceProvider::class,
-    App\Modules\Reporting\ReportingServiceProvider::class,
-    App\Modules\Ticketing\TicketingServiceProvider::class,
-    App\Providers\AppServiceProvider::class,
-    App\Providers\VoltServiceProvider::class,
+    AdminServiceProvider::class,
+    CatalogServiceProvider::class,
+    CheckinServiceProvider::class,
+    OrderingServiceProvider::class,
+    PaymentsServiceProvider::class,
+    ReportingServiceProvider::class,
+    TicketingServiceProvider::class,
+    AppServiceProvider::class,
+    FortifyServiceProvider::class,
+    VoltServiceProvider::class,
 ];

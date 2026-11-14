@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Jobs\CountTenantCatalogs;
-use App\Models\Event;
 use App\Models\Catalog;
 use App\Models\CatalogCategory;
+use App\Models\Event;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Models\UserTenantRole;
@@ -155,5 +155,15 @@ class TenantIsolationTest extends TestCase
         $jobB = new CountTenantCatalogs($b->id);
         $jobB->handle(app(TenantContext::class));
         $this->assertSame(3, $jobB->result); // tidak terkontaminasi tenant A
+    }
+
+    public function test_tenant_context_does_not_break_parent_event_query(): void
+    {
+        [$a] = $this->tenantWithCatalogs(1);
+        app(TenantContext::class)->set($a);
+
+        // Event dan EventSeat bukan tenant-owned (tidak memiliki kolom tenant_id).
+        $this->assertNotNull($a->event);
+        $this->assertSame($a->event_id, $a->event->id);
     }
 }

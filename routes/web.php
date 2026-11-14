@@ -1,15 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardRedirectController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
-require __DIR__.'/auth.php';
+Route::view('/', 'welcome')->name('home');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', DashboardRedirectController::class)->name('dashboard');
+});
+require __DIR__.'/settings.php';

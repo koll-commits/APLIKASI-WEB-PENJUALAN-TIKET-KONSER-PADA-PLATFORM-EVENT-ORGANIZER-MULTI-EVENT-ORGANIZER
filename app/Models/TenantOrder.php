@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\BelongsToTenant;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class TenantOrder extends Model
 {
     use BelongsToTenant;
+
     protected $fillable = ['status', 'scheduled_at'];
 
     protected function casts(): array

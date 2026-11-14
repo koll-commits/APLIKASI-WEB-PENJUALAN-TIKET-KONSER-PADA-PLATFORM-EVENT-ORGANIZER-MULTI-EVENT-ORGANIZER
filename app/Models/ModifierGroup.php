@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Database\Factories\ModifierGroupFactory;
 use App\Models\Concerns\BelongsToTenant;
+use Database\Factories\ModifierGroupFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,9 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ModifierGroup extends Model
 {
+    use BelongsToTenant;
+
     /** @use HasFactory<ModifierGroupFactory> */
     use HasFactory;
-    use BelongsToTenant;
 
     protected $fillable = ['name', 'min_select', 'max_select', 'is_active'];
 

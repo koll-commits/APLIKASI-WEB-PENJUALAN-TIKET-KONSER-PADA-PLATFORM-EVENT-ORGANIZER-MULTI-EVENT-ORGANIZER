@@ -4,17 +4,16 @@ namespace App\Modules\Catalog\Services;
 
 use App\Models\Catalog;
 use App\Models\Event;
-use App\Models\Menu;
 use Illuminate\Support\Collection;
 
 /**
- * Query lintas-tenant yang SAH untuk katalog publik satu kantin. Bypass global scope
- * dilakukan eksplisit lalu diganti filter pengganti: hanya tenant milik canteen tsb,
- * berstatus aktif, dan menu yang tersedia. Ditempatkan di class khusus agar mudah diaudit.
+ * Query lintas-tenant yang SAH untuk katalog publik satu event. Bypass global scope
+ * dilakukan eksplisit lalu diganti filter pengganti: hanya tenant milik event tsb,
+ * berstatus aktif, dan katalog yang tersedia. Ditempatkan di class khusus agar mudah diaudit.
  */
 final class PublicCatalogQuery
 {
-    /** @return Collection<int, Event> */
+    /** @return Collection<int, Catalog> */
     public function forEvent(Event $event): Collection
     {
         return Catalog::query()

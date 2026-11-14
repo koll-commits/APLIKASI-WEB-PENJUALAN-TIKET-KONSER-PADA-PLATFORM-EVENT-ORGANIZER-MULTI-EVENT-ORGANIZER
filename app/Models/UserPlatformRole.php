@@ -10,11 +10,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class UserPlatformRole extends Model
 {
-    protected $fillable = ['user_id', 'role'];
+    protected $fillable = ['user_id', 'event_id', 'role'];
 
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /** @return BelongsTo<Event, $this> */
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
     }
 }

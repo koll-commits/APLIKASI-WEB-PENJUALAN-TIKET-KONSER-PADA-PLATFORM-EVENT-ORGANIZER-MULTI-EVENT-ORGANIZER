@@ -29,10 +29,9 @@ final class PortalRoutes
      * {tenant:slug}, memeriksa membership + status, lalu mengisi TenantContext; scopeBindings
      * mengunci resource anak di bawah tenant induk (Modul 4).
      */
-
     public static function tenant(Closure|string $routes): void
     {
-            Route::middleware(['web', 'auth', 'verified', 'tenant'])
+        Route::middleware(['web', 'auth', 'verified', 'tenant'])
             ->prefix('tenant/{tenant:slug}')
             ->name('tenant.')
             ->scopeBindings()

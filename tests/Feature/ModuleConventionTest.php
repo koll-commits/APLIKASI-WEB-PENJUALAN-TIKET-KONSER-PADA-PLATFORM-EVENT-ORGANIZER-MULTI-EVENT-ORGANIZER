@@ -50,10 +50,10 @@ class ModuleConventionTest extends TestCase
         Route::getRoutes()->refreshNameLookups();
     }
 
-   public function test_every_module_registers_its_own_view_namespace(): void
+    public function test_every_module_registers_its_own_view_namespace(): void
     {
         $hints = View::getFinder()->getHints();
-        foreach (['Admin', 'Catalog', 'Ordering', 'Payments', 'Checkin','Ticketing', 'Reporting'] as $module) {
+        foreach (['Admin', 'Catalog', 'Ordering', 'Payments', 'Checkin', 'Ticketing', 'Reporting'] as $module) {
             $alias = strtolower($module);
             $this->assertArrayHasKey($alias, $hints, "Namespace view '{$alias}::' tidak terdaftar");
             $expected = realpath(app_path("Modules/{$module}/resources/views"));

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Database\Factories\CatalogCategoryFactory;
 use App\Models\Concerns\BelongsToTenant;
+use Database\Factories\CatalogCategoryFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,9 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CatalogCategory extends Model
 {
+    use BelongsToTenant;
+
     /** @use HasFactory<CatalogCategoryFactory> */
     use HasFactory;
-    use BelongsToTenant;
 
     protected $fillable = ['name', 'sort_order', 'is_active'];
 

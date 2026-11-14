@@ -12,6 +12,7 @@ use App\Models\ModifierOption;
 use App\Models\Tenant;
 use App\Models\TenantBalance;
 use App\Models\User;
+use App\Models\UserPlatformRole;
 use App\Models\UserTenantRole;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -160,22 +161,32 @@ class DemoEventSeeder extends Seeder
             }
         }
 
-        // 4. Hubungkan User Demo EO ke Tenant 'SOUND'
-        $eoUser = User::firstOrCreate(
-            ['email' => 'eo@stagetix.test'],
-            [
-                'name' => 'Event Organizer',
-                'role' => 'eo',
-                'status' => 'active',
-                'password' => Hash::make('password'),
-                'email_verified_at' => now(),
-            ]
-        );
+        // 4. Hubungkan User Demo EO / Tenant ke Tenant 'SOUND'
+        foreach (['eo@stagetix.test', 'tenant@stagetix.test'] as $email) {
+            $operatorUser = User::firstOrCreate(
+                ['email' => $email],
+                [
+                    'name' => 'Tenant Operator',
+                    'role' => 'tenant',
+                    'status' => 'active',
+                    'password' => Hash::make('password'),
+                    'email_verified_at' => now(),
+                ]
+            );
 
-        UserTenantRole::firstOrCreate([
-            'user_id' => $eoUser->id,
-            'tenant_id' => $tenants['SOUND']->id,
-            'role' => 'operator',
-        ]);
+            UserTenantRole::firstOrCreate([
+                'user_id' => $operatorUser->id,
+                'tenant_id' => $tenants['SOUND']->id,
+                'role' => 'operator',
+            ]);
+        }
+
+        $admin = User::where('email', 'admin@stagetix.test')->first();
+        if ($admin !== null) {
+            UserPlatformRole::firstOrCreate(
+                ['user_id' => $admin->id, 'role' => 'admin'],
+                ['event_id' => $event->id],
+            );
+        }
     }
 }

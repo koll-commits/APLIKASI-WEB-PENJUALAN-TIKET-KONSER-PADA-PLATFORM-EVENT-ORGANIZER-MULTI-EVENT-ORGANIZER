@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
         // Akun demo per konteks (Modul 2). Role diformalkan pada Modul 4–5.
         $demo = [
             ['name' => 'Admin STAGE TIX', 'email' => 'admin@stagetix.test', 'role' => 'admin'],
-            ['name' => 'Event Organizer', 'email' => 'eo@stagetix.test', 'role' => 'eo'],
+            ['name' => 'Event Organizer', 'email' => 'eo@stagetix.test', 'role' => 'tenant'],
+            ['name' => 'Tenant Operator', 'email' => 'tenant@stagetix.test', 'role' => 'tenant'],
         ];
 
         foreach ($demo as $row) {

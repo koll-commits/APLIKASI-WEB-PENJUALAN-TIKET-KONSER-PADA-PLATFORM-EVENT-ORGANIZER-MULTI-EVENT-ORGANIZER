@@ -78,7 +78,7 @@ class User extends Authenticatable implements PasskeyUser
 
     public function isTenantOperator(): bool
     {
-        return $this->hasRole('eo');
+        return $this->hasRole('tenant') || $this->hasRole('eo');
     }
 
     public function isActive(): bool

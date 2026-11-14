@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
  * dari PortalRoutes) dan difilter global scope TenantContext.
  */
 PortalRoutes::tenant(function (): void {
-    Route::get('/catalogs', [TenantcatalogController::class, 'index'])->name('catalogs.index');
-    Route::get('/catalogs/{catalog}', [TenantcatalogController::class, 'show'])->name('catalogs.show');
-    Route::patch('/catalogs/{catalog}', [TenantcatalogController::class, 'update'])->name('catalogs.update');
+    Route::get('/catalogs', [TenantCatalogController::class, 'index'])->name('catalogs.index');
+    Route::get('/catalogs/{catalog}', [TenantCatalogController::class, 'show'])->name('catalogs.show');
+    Route::patch('/catalogs/{catalog}', [TenantCatalogController::class, 'update'])->name('catalogs.update');
 });
