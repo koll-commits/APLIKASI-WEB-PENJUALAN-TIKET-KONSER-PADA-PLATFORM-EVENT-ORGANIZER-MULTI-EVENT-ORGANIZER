@@ -3,6 +3,7 @@
 namespace App\Modules\Ticketing\Http\Requests;
 
 use App\Models\Concert;
+use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -13,9 +14,9 @@ class ConcertRequest extends FormRequest
     {
         $concert = $this->route('concert');
 
-        return $concert instanceof Concert
+        return ($concert instanceof Event || $concert instanceof Concert)
             ? ($this->user()?->can('update', $concert) ?? false)
-            : ($this->user()?->can('create', Concert::class) ?? false);
+            : ($this->user()?->can('create', Event::class) ?? false);
     }
 
     /** @return array<string, mixed> */
@@ -29,7 +30,7 @@ class ConcertRequest extends FormRequest
             'starts_at' => ['required', 'date', $this->isMethod('POST') ? 'after:now' : 'date'],
             'ends_at' => ['nullable', 'date', 'after_or_equal:starts_at'],
             'description' => ['nullable', 'string', 'max:5000'],
-            'status' => ['required', Rule::in(array_keys(Concert::STATUSES))],
+            'status' => ['required', Rule::in(array_keys(Event::STATUSES))],
         ];
     }
 

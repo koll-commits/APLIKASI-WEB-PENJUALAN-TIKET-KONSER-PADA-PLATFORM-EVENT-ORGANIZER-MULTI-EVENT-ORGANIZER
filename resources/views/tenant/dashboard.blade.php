@@ -7,7 +7,7 @@
             </div>
             <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">Slug: <span class="font-mono">{{ $tenant->slug }}</span></p>
         </div>
-        @can('create', \App\Models\Concert::class)
+        @can('create', \App\Models\Event::class)
             <a href="{{ route('tenant.concerts.create', ['tenant' => $tenant->slug]) }}"><x-button>+ Tambah event</x-button></a>
         @endcan
     </div>
@@ -37,7 +37,7 @@
                             <div class="font-medium">{{ $concert->name }}</div>
                             <div class="text-xs text-zinc-500">{{ $concert->venue }}, {{ $concert->city }} · {{ $concert->starts_at->translatedFormat('j M Y, H:i') }}</div>
                         </div>
-                        <x-status-badge :status="$concert->status === 'published' ? 'active' : 'pending'">{{ \App\Models\Concert::STATUSES[$concert->status] ?? $concert->status }}</x-status-badge>
+                        <x-status-badge :status="$concert->status === 'published' ? 'active' : 'pending'">{{ \App\Models\Event::STATUSES[$concert->status] ?? $concert->status }}</x-status-badge>
                     </li>
                 @endforeach
             </ul>

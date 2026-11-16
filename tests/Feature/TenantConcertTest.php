@@ -51,7 +51,7 @@ class TenantConcertTest extends TestCase
         $this->post(route('tenant.concerts.store', ['tenant' => $tenant->slug]), $this->payload())
             ->assertRedirect(route('tenant.concerts.index', ['tenant' => $tenant->slug]));
 
-        $this->assertDatabaseHas('concerts', ['tenant_id' => $tenant->id, 'name' => 'Rock in Jakarta', 'slug' => 'rock-in-jakarta']);
+        $this->assertDatabaseHas('events', ['tenant_id' => $tenant->id, 'name' => 'Rock in Jakarta', 'slug' => 'rock-in-jakarta']);
     }
 
     public function test_slug_is_unique_within_the_tenant(): void
@@ -63,7 +63,7 @@ class TenantConcertTest extends TestCase
         $this->post($url, $this->payload());
         $this->post($url, $this->payload());
 
-        $this->assertDatabaseHas('concerts', ['tenant_id' => $tenant->id, 'slug' => 'rock-in-jakarta-2']);
+        $this->assertDatabaseHas('events', ['tenant_id' => $tenant->id, 'slug' => 'rock-in-jakarta-2']);
     }
 
     public function test_cashier_can_view_but_not_create(): void
@@ -73,7 +73,7 @@ class TenantConcertTest extends TestCase
 
         $this->get(route('tenant.concerts.index', ['tenant' => $tenant->slug]))->assertOk();
         $this->post(route('tenant.concerts.store', ['tenant' => $tenant->slug]), $this->payload())->assertForbidden();
-        $this->assertDatabaseCount('concerts', 0);
+        $this->assertSame(0, Event::where('tenant_id', $tenant->id)->count());
     }
 
     public function test_non_member_is_forbidden(): void
@@ -104,7 +104,7 @@ class TenantConcertTest extends TestCase
         $this->patch(route('tenant.concerts.update', ['tenant' => $tenant->slug, 'concert' => $concert->id]), $this->payload(['name' => 'Nama Baru', 'status' => 'published']))
             ->assertRedirect();
 
-        $this->assertDatabaseHas('concerts', ['id' => $concert->id, 'name' => 'Nama Baru', 'status' => 'published']);
+        $this->assertDatabaseHas('events', ['id' => $concert->id, 'name' => 'Nama Baru', 'status' => 'published']);
     }
 
     public function test_only_draft_concert_can_be_deleted(): void
@@ -115,10 +115,10 @@ class TenantConcertTest extends TestCase
         $this->actingAs($this->memberOf($tenant));
 
         $this->delete(route('tenant.concerts.destroy', ['tenant' => $tenant->slug, 'concert' => $published->id]))->assertSessionHasErrors('concert');
-        $this->assertDatabaseHas('concerts', ['id' => $published->id]);
+        $this->assertDatabaseHas('events', ['id' => $published->id]);
 
         $this->delete(route('tenant.concerts.destroy', ['tenant' => $tenant->slug, 'concert' => $draft->id]))->assertRedirect();
-        $this->assertDatabaseMissing('concerts', ['id' => $draft->id]);
+        $this->assertDatabaseMissing('events', ['id' => $draft->id]);
     }
 
     public function test_validation_rejects_past_start_and_end_before_start(): void

@@ -25,7 +25,7 @@
         <div class="flex flex-col gap-1">
             <label for="status" class="text-sm font-medium text-zinc-700 dark:text-zinc-200">Status</label>
             <select id="status" name="status" class="min-h-11 rounded-lg border border-zinc-300 bg-white px-3 text-sm dark:border-zinc-600 dark:bg-zinc-800">
-                @foreach (\App\Models\Concert::STATUSES as $value => $label)
+                @foreach (\App\Models\Event::STATUSES as $value => $label)
                     <option value="{{ $value }}" @selected(old('status', $c?->status ?? 'draft') === $value)>{{ $label }}</option>
                 @endforeach
             </select>

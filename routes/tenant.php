@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Concert;
+use App\Models\Event;
 use App\Models\Tenant;
 use Illuminate\Support\Facades\Route;
 
@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Route;
  * PortalRoutes::tenant(); route fitur ditambahkan modul di app/Modules/{Modul}/routes/tenant.php.
  */
 Route::get('/dashboard', function (Tenant $tenant) {
-    // TenantContext sudah terisi middleware `tenant`, sehingga query Concert otomatis hanya milik EO ini.
     $stats = [
-        'total' => Concert::query()->count(),
-        'published' => Concert::query()->where('status', 'published')->count(),
-        'draft' => Concert::query()->where('status', 'draft')->count(),
+        'total' => Event::query()->where('tenant_id', $tenant->id)->count(),
+        'published' => Event::query()->where('tenant_id', $tenant->id)->where('status', 'published')->count(),
+        'draft' => Event::query()->where('tenant_id', $tenant->id)->where('status', 'draft')->count(),
     ];
-    $upcoming = Concert::query()
+    $upcoming = Event::query()
+        ->where('tenant_id', $tenant->id)
         ->where('status', '!=', 'cancelled')
         ->where('starts_at', '>=', now())
         ->orderBy('starts_at')

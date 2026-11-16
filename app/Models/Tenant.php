@@ -18,9 +18,9 @@ class Tenant extends Model
     // event_id di-set eksplisit oleh sistem/admin
     protected $fillable = ['code', 'slug', 'display_name', 'status'];
 
-    public function concerts(): HasMany
+        public function concerts(): HasMany
     {
-        return $this->hasMany(Concert::class);
+        return $this->hasMany(Event::class, 'tenant_id');
     }
 
     

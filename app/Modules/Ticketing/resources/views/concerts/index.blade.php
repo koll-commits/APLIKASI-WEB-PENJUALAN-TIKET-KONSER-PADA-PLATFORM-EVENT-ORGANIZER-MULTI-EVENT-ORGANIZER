@@ -7,7 +7,7 @@
     @endif
     <div class="mb-4 flex items-center justify-between">
         <h1 class="text-xl font-semibold">Event Saya</h1>
-        @can('create', \App\Models\Concert::class)
+        @can('create', \App\Models\Event::class)
             <a href="{{ route('tenant.concerts.create', ['tenant' => $tenant->slug]) }}"><x-button>+ Tambah event</x-button></a>
         @endcan
     </div>
@@ -27,9 +27,9 @@
                     <tr @class(['border-t border-zinc-200 dark:border-zinc-800', 'text-zinc-400' => $concert->status === 'cancelled'])>
                         <td class="px-4 py-3 font-medium">{{ $concert->name }}</td>
                         <td class="px-4 py-3">{{ $concert->venue }}, {{ $concert->city }}</td>
-                        <td class="whitespace-nowrap px-4 py-3">{{ $concert->starts_at->translatedFormat('j M Y, H:i') }}</td>
+                        <td class="whitespace-nowrap px-4 py-3">{{ $concert->starts_at?->translatedFormat('j M Y, H:i') }}</td>
                         <td class="px-4 py-3">
-                            <x-status-badge :status="match ($concert->status) { 'published' => 'active', 'draft' => 'pending', default => 'suspended' }">{{ \App\Models\Concert::STATUSES[$concert->status] ?? $concert->status }}</x-status-badge>
+                            <x-status-badge :status="match ($concert->status) { 'published' => 'active', 'draft' => 'pending', default => 'suspended' }">{{ \App\Models\Event::STATUSES[$concert->status] ?? $concert->status }}</x-status-badge>
                         </td>
                         <td class="px-4 py-3 text-right">
                             @can('update', $concert)
