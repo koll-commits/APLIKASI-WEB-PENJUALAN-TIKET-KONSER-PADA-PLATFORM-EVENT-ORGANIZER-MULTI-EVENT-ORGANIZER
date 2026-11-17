@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ModifierGroup extends Model
 {
@@ -33,5 +34,14 @@ class ModifierGroup extends Model
     public function options(): HasMany
     {
         return $this->hasMany(ModifierOption::class, 'group_id');
+    }
+    public function catalogs(): BelongsToMany
+    {
+    return $this->belongsToMany(
+        Catalog::class,
+        'catalog_modifier_groups',
+        'modifier_group_id',
+        'catalog_id'
+    );
     }
 }

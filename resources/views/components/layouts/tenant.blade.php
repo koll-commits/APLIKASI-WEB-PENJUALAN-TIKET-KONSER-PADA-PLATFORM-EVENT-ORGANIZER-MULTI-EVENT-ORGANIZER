@@ -9,6 +9,7 @@
         <aside :class="open ? 'translate-x-0' : '-translate-x-full'"
             class="fixed inset-y-0 left-0 z-20 w-64 transform border-r border-zinc-200 bg-white p-4 transition-transform duration-200 lg:static lg:translate-x-0 dark:border-zinc-800 dark:bg-zinc-900">
             <div class="mb-6 text-lg font-semibold">Event Organizer</div>
+            
             <nav class="flex flex-col gap-1 text-sm">
                 @php
                     $routeTenant = request()->route('tenant');
@@ -21,6 +22,8 @@
                 <a href="{{ route('tenant.concerts.index', ['tenant' => $slug]) }}"
                     class="rounded-lg px-3 py-2 font-medium {{ request()->routeIs('tenant.concerts.*') ? $on : $off }}">Event</a>
                 <span class="px-3 py-2 text-zinc-400">Pesanan / KDS (Modul 12)</span>
+                <a href="{{ route('tenant.catalog-manager', ['tenant' => $slug]) }}"
+                    class="rounded-lg px-3 py-2 font-medium {{ request()->routeIs('tenant.catalog-manager') ? $on : $off }}">Katalog &amp; Stok</a>
             </nav>
         </aside>
         <div class="flex min-w-0 flex-1 flex-col">

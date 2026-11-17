@@ -31,10 +31,11 @@ class DashboardRedirectController extends Controller
                 ->value('slug');
 
             if ($tenantSlug !== null) {
-                return redirect()->route('tenant.dashboard', ['tenant' => $tenantSlug]);
+                return redirect()->route('tenant.catalog-manager', ['tenant' => $tenantSlug]);
             }
         }
 
-        return view('dashboard');
+        // Pelanggan langsung diarahkan ke katalog tiket utama
+        return redirect()->route('home');
     }
 }

@@ -1,4 +1,3 @@
-<x-layouts.customer :title="'Event: '.$event">
-    <x-empty-state title="Event belum tersedia"
-        description="Menu publik untuk event '{{ $event }}' akan tampil di sini (Modul 7)." />
+<x-layouts.customer :title="'Katalog Event'">
+    <livewire:catalog::catalog-browser :event-slug="$event" />
 </x-layouts.customer>

@@ -7,6 +7,8 @@ use Database\Factories\CatalogFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Catalog extends Model
 {
@@ -38,5 +40,19 @@ class Catalog extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(CatalogCategory::class, 'category_id');
+    }
+    public function modifierGroups(): BelongsToMany
+    {
+    return $this->belongsToMany(
+        ModifierGroup::class,
+        'catalog_modifier_groups',
+        'catalog_id',
+        'modifier_group_id'
+    )->withPivot(['tenant_id', 'sort_order'])
+     ->orderBy('catalog_modifier_groups.sort_order');
+    }
+    public function scopeSellable(Builder $query): void
+    {
+    $query->where('is_available', true)->where('stock_qty', '>', 0);
     }
 }
